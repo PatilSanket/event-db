@@ -1,21 +1,14 @@
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
-use std::sync::Arc;
-use tokio::sync::RwLock;
 
-/// A key in the database
 pub type Key = Vec<u8>;
 
-/// A value in the database
 pub type Value = Vec<u8>;
 
-/// Timestamp for ordering operations
 pub type Timestamp = u64;
 
-/// Sequence number for ordering within the same timestamp
 pub type SequenceNumber = u64;
 
-/// A unique identifier for an operation
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub struct OperationId {
     pub timestamp: Timestamp,
@@ -42,18 +35,16 @@ impl Ord for OperationId {
     }
 }
 
-/// Database operation types
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub enum Operation {
     Put { key: Key, value: Value },
     Delete { key: Key },
 }
 
-/// An entry in the database with metadata
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Entry {
     pub key: Key,
-    pub value: Option<Value>, // None for delete operations
+    pub value: Option<Value>,
     pub operation_id: OperationId,
     pub is_deleted: bool,
 }
@@ -108,8 +99,8 @@ pub struct DatabaseConfig {
 impl Default for DatabaseConfig {
     fn default() -> Self {
         Self {
-            max_memtable_size: 1024 * 1024, // 1MB
-            max_sstable_size: 10 * 1024 * 1024, // 10MB
+            max_memtable_size: 1024 * 1024,
+            max_sstable_size: 10 * 1024 * 1024,
             max_levels: 7,
             compaction_threshold: 4,
             btree_node_size: 4096,
@@ -117,5 +108,4 @@ impl Default for DatabaseConfig {
     }
 }
 
-/// Result type for database operations
 pub type DatabaseResult<T> = Result<T, crate::error::DatabaseError>;
