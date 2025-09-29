@@ -5,20 +5,17 @@ use crate::error::DatabaseError;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 
-/// B-Tree node structure
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BTreeNode {
     pub keys: Vec<Key>,
-    pub values: Vec<Option<Value>>, // None for deleted entries
+    pub values: Vec<Option<Value>>,
     pub children: Vec<Option<BTreeNodeId>>,
     pub is_leaf: bool,
     pub size: usize,
 }
 
-/// Unique identifier for a B-Tree node
 pub type BTreeNodeId = u64;
 
-/// B-Tree implementation optimized for read operations
 pub struct BTree {
     root: Option<BTreeNodeId>,
     nodes: BTreeMap<BTreeNodeId, BTreeNode>,
