@@ -20,8 +20,8 @@ pub type BTreeNodeId = u64;
 
 /// B-Tree implementation optimized for read operations
 pub struct BTree {
-    root: Arc<RwLock<Option<BTreeNodeId>>>,
-    nodes: Arc<RwLock<BTreeMap<BTreeNodeId, BTreeNode>>>,
-    next_node_id: Arc<RwLock<BTreeNodeId>>,
+    root: Option<BTreeNodeId>,
+    nodes: BTreeMap<BTreeNodeId, BTreeNode>,
+    next_node_id:BTreeNodeId>,
     config: DatabaseConfig,
 }
