@@ -1,10 +1,8 @@
 /// Main database implementation with LSM tree for writes and B-Tree for reads
 use crate::types::*;
-use crate::error::DatabaseError;
 use crate::b_tree::BTree;
 use crate::lsm_tree::LSMTree;
 use std::path::PathBuf;
-use std::sync::Arc;
 
 pub struct Database {
     lsm_tree: LSMTree,
@@ -51,6 +49,7 @@ impl Database {
     }
     
     pub async fn close(&self) -> DatabaseResult<()> {
+        self.lsm_tree.flush().await?;
         Ok(())
     }
 }
