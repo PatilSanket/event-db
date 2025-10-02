@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  event-db:
+    build: .
+    container_name: event-db
+    environment:
+      - DATABASE_PATH=/data
+      - RUST_LOG=info
+    volumes:
+      - ./data:/data
+    ports:
+      - "8080:8080"
+    restart: unless-stopped

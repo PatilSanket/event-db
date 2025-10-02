@@ -1,13 +1,16 @@
 [package]
 name = "lsm-btree-db"
 version = "0.0.1"
-edition = "2025"
+edition = "2021"
 
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
-serde_json = ""
+serde_json = "1.0"
 tokio = { version = "1.0", features = ["full"] }
-thiserror = ""
-futures = ""
-async-trait = ""
+thiserror = "1.0"
+futures = "0.3"
+async-trait = "0.1"
+async-recursion = "1.0"
 lsm-tree = "2.10"
+tracing = "0.1"
+tracing-subscriber = "0.3"
