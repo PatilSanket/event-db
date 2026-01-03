@@ -1,10 +1,25 @@
-
+```
 ### Using Docker Compose
 ```bash
-# Build and run the database
-docker-compose up --build
 
-# Run in detached mode
+
+# Build and run the database in detached mode for interactive use
+docker-compose up --build -d
+
+# Attach to the running container to access the REPL
+docker attach event-db
+```
+
+Once attached, you can type commands like:
+- `put key value`
+- `get key`
+- `delete key`
+- `exit` to stop the database
+
+Note: `Ctrl+C` will detach but not stop the container if you used `-d`. To stop it, run `docker-compose down`.
+
+```bash
+# Run in detached mode (alternative to the above if you don't need interactive access immediately)
 docker-compose up -d --build
 
 # View logs
@@ -14,7 +29,7 @@ docker-compose logs -f
 docker-compose down
 ```
 
-### Using Docker directly
+### Using Docker directly (Please don't, docker compose exists for a)
 ```bash
 # Build the image
 docker build -t event-db .
