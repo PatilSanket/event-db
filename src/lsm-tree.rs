@@ -68,4 +68,10 @@ impl LSMTree {
         self.tree.flush_active_memtable(seq).map_err(|e| DatabaseError::InvalidOperation(e.to_string()))?;
         Ok(())
     }
+
+    /// Peek at the next sequence number (used by the WAL to tag entries).
+    pub async fn next_sequence(&self) -> u64 {
+        let seq = self.sequence_counter.read().await;
+        *seq + 1
+    }
 }

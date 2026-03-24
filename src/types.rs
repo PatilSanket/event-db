@@ -93,6 +93,8 @@ pub struct DatabaseConfig {
     pub max_levels: usize,
     pub compaction_threshold: usize,
     pub btree_node_size: usize,
+    pub wal_enabled: bool,
+    pub wal_sync_on_write: bool,
 }
 
 impl Default for DatabaseConfig {
@@ -103,6 +105,8 @@ impl Default for DatabaseConfig {
             max_levels: 7,
             compaction_threshold: 4,
             btree_node_size: 4096,
+            wal_enabled: true,
+            wal_sync_on_write: true,
         }
     }
 }

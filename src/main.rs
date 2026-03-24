@@ -23,6 +23,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         max_levels: 7,
         compaction_threshold: 4,
         btree_node_size: 8192,
+        wal_enabled: true,
+        wal_sync_on_write: true,
     };
 
     let db_config = DatabaseBuilder::new()

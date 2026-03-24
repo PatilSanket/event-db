@@ -19,4 +19,10 @@ pub enum DatabaseError {
     
     #[error("Configuration error: {0}")]
     Configuration(String),
+    
+    #[error("WAL error: {0}")]
+    WalError(String),
+    
+    #[error("Checksum mismatch in WAL record")]
+    ChecksumMismatch,
 }
